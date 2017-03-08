@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import static android.R.id.list;
-
 /**
  * Created by RENT on 2017-03-07.
  */
