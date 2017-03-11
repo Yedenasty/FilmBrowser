@@ -3,19 +3,21 @@
     package="com.example.rent.filmbrowserapp">
 <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:name=".MovieAplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_movie_logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity">
+        <activity android:name=".search.SearchActivity"
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListingActivity"/>
+        <activity android:name=".listing.ListingActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.rent.filmbrowserapp;
+package com.example.rent.filmbrowserapp.listing;
 
 import com.google.gson.annotations.SerializedName;
 

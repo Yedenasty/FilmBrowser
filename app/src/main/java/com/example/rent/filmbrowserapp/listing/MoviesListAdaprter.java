@@ -1,6 +1,5 @@
-package com.example.rent.filmbrowserapp;
+package com.example.rent.filmbrowserapp.listing;
 
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.rent.filmbrowserapp.R;
 
 import java.util.Collections;
 import java.util.List;
