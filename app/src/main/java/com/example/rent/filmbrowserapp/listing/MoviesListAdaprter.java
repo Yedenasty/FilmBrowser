@@ -17,11 +17,16 @@ import java.util.List;
 public class MoviesListAdaprter extends RecyclerView.Adapter<MoviesListAdaprter.MyViewHolder> {
 
     private List<MovieListingItem> items = Collections.emptyList();
+    private OnMovieItemClickListener onMovieClickListener;
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
 
         return new MyViewHolder(item);
+    }
+
+    public void setOnMovieClickListener(OnMovieItemClickListener onMovieClickListener) {
+        this.onMovieClickListener = onMovieClickListener;
     }
 
     @Override
@@ -30,6 +35,13 @@ public class MoviesListAdaprter extends RecyclerView.Adapter<MoviesListAdaprter.
         Glide.with(holder.poster.getContext()).load(movieListingItem.getPoster()).into(holder.poster);
         holder.titleAndYear.setText(movieListingItem.getTitle()  + "\n(" + movieListingItem.getYear() + " rok)");
         holder.type.setText("typ: " + movieListingItem.getType());
+        holder.itemView.setOnClickListener(v -> {
+            if (onMovieClickListener != null) {
+                onMovieClickListener.onMovieItemClick(movieListingItem.getImdbID());
+            }
+
+        });
+
     }
 
     @Override
@@ -49,12 +61,15 @@ public class MoviesListAdaprter extends RecyclerView.Adapter<MoviesListAdaprter.
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
+
+        View itemView;
         ImageView poster;
         TextView titleAndYear;
         TextView type;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             poster = (ImageView) itemView.findViewById(R.id.poster);
             titleAndYear = (TextView) itemView.findViewById(R.id.title_and_year);
             type = (TextView) itemView.findViewById(R.id.type);

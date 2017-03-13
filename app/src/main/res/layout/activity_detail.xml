@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/activity_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp"
+    android:background="@color/grey"
+    tools:context="com.example.rent.filmbrowserapp.details.DetailActivity">
+
+    <include layout="@layout/list_item"/>
+
+    <RelativeLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:background="@color/white">
+
+        <TextView
+            tools:text="7.7"
+            android:id="@+id/detail_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            tools:text="czas trwania 2h,3min"
+            android:id="@+id/detail_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/white"/>
+
+        <TextView
+            tools:text="2 oscary 5 malin czternascie zlotych globow i pińcet fryderyków"
+            android:id="@+id/detail_awards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_below="@+id/detail_runtime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ScrollView
+            android:id="@+id/detail_plot"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/white"
+            android:layout_below="@+id/detail_awards"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+
+    <!--@SerializedName("Rated")  )  @SerializedName("Runtime")-->
+                    <!--@SerializedName("Awards"-->
+    <!--@SerializedName("Plot")-->
+    <!--@SerializedName("Director")-->
+    <!--@SerializedName("Actors")-->
+
+
+
+    <!--private String imdbRating;-->
+
+

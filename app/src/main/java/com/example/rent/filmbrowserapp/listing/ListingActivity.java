@@ -3,15 +3,18 @@ package com.example.rent.filmbrowserapp.listing;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.rent.filmbrowserapp.R;
 import com.example.rent.filmbrowserapp.RetrofitProvider;
+import com.example.rent.filmbrowserapp.details.DetailActivity;
 import com.example.rent.filmbrowserapp.search.SearchResult;
 
 import static io.reactivex.schedulers.Schedulers.io;
@@ -24,7 +27,7 @@ import nucleus.view.NucleusAppCompatActivity;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 @RequiresPresenter(ListingPresenter.class)
-public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> implements CurrentItemListener, ShowOrHideCounter {
+public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> implements CurrentItemListener, ShowOrHideCounter, OnMovieItemClickListener {
     private static final String SEARCH_TITLE = "search_title";
     private static final String SEARCH_YEAR = "search_year";
     private static final String SEARCH_TYPE = "search_type";
@@ -45,6 +48,9 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
 
     @BindView(R.id.counter)
     TextView counter;
+
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private EndlessScrollListener endlessScrollListener;
 
@@ -67,6 +73,7 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
         String type = getIntent().getStringExtra(SEARCH_TYPE);
 
         adapter = new MoviesListAdaprter();
+        adapter.setOnMovieClickListener(this);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -75,16 +82,29 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
         endlessScrollListener.setCurrentItemListener(this);
         endlessScrollListener.setShowOrHideCounter(this);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                startLoading(title, year, type);
+            }
+        });
+
+
+        startLoading(title, year, type);
+
+
+        //  endlessScrollListener.onScrollStateChanged(recyclerView);
+    }
+
+    private void startLoading(String title, int year, String type) {
         getPresenter().getDataAsync(title, year, type)   //getPresenter zwraca prezentaera którego wczesniej definiowalismy
                 .subscribeOn(io())       //to co jest  powyżej jest wykonane w innym wątku
                 .observeOn(mainThread())  //to co bedzie wykonywane w głównym wątku
                 .subscribe(this::success, this::error);
-
-
-      //  endlessScrollListener.onScrollStateChanged(recyclerView);
     }
 
     private void error(Throwable throwable) {
+        swipeRefreshLayout.setRefreshing(false);
         viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(noInternetView));
     }
 
@@ -96,10 +116,11 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
 
 
     private void success(SearchResult searchResult) {
+        swipeRefreshLayout.setRefreshing(false);
         if ("false".equalsIgnoreCase(searchResult.getResponse())) {
             viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(noResults));
         } else {
-            viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(recyclerView));
+            viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(swipeRefreshLayout));
             adapter.setItems(searchResult.getItems());
             endlessScrollListener.setTotalItemsNumber(Integer.parseInt(searchResult.getTotalResults()));
         }
@@ -126,5 +147,10 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
     @Override
     public void hideCounter() {
         counter.animate().alpha(0).start();
+    }
+
+    @Override
+    public void onMovieItemClick(String imdbID) {
+        startActivity(DetailActivity.createIntent(this, imdbID));
     }
 }
