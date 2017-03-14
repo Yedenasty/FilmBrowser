@@ -9,5 +9,9 @@
     <color name="red">#FF0000</color>
     <color name="yellow">#FFFF00</color>
     <color name="semiTransparentBlack">#88000000</color>
+    <color name="blekitjj">#EEEEFF</color>
+    <color name="blekitj">#DDDDFF</color>
+    <color name="blekit">#CCCCFF</color>
+
 
 </resources>

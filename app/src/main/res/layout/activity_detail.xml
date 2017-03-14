@@ -1,77 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:id="@+id/activity_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="2dp"
     android:background="@color/grey"
+    android:orientation="vertical"
+    android:padding="2dp"
     tools:context="com.example.rent.filmbrowserapp.details.DetailActivity">
 
-    <include layout="@layout/list_item"/>
+    <include layout="@layout/list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    />
+
+
+
 
     <RelativeLayout
-        android:id="@+id/detail_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:layout_margin="2dp"
-        android:background="@color/white">
+        android:background="@color/blekit">
 
         <TextView
-            tools:text="7.7"
+            android:id="@+id/ocena"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="Ocena: "
+            android:textSize="15dp" />
+
+        <TextView
+
             android:id="@+id/detail_rate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="30dp"
-            android:background="@color/white"
-            />
+
+            android:layout_height="40dp"
+            android:layout_marginTop="7dp"
+            android:layout_toRightOf="@+id/ocena"
+            android:textSize="20dp"
+
+            tools:text="7,7" />
 
         <TextView
-            tools:text="czas trwania 2h,3min"
-            android:id="@+id/detail_runtime"
+            android:id="@+id/czas"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/white"/>
+            android:layout_height="40dp"
+            android:layout_toLeftOf="@+id/detail_runtime"
+            android:gravity="center"
+            android:text="Czas trwania: "
+            android:textSize="15dp" />
 
         <TextView
-            tools:text="2 oscary 5 malin czternascie zlotych globow i pińcet fryderyków"
-            android:id="@+id/detail_awards"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_below="@+id/detail_runtime"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/detail_runtime"
 
-        <ScrollView
-            android:id="@+id/detail_plot"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@color/white"
-            android:layout_below="@+id/detail_awards"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+
+            android:gravity="center"
+            android:textSize="20dp"
+            tools:text="2h 20 min" />
 
 
     </RelativeLayout>
 
 
+
+    <android.support.v4.widget.NestedScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blekitjj">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:paddingBottom="5dp"
+                android:background="@color/blekitj">
+
+                <TextView
+                    android:id="@+id/rezyseria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Reżyseria: "
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/detail_director"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/rezyseria"
+                    android:textSize="15dp"
+                    tools:text="Zdzichu Michu" />
+
+                <TextView
+                    android:id="@+id/obsada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/detail_director"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Obsada: "
+                    android:textSize="20dp" />
+
+
+                <TextView
+                    android:id="@+id/detail_cast"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_director"
+                    android:layout_marginRight="150dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/obsada"
+                    android:textSize="15dp"
+                    tools:text="La la Tra lala, Pacan Patentowany, Mis uszatek, Wilk Bardzozly, Kaczka Dziwaczka, Sraczka Misiaczka, Niania Frania i Pan Zdzich" />
+
+                <TextView
+                    android:id="@+id/nagrody"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nagrody: "
+                    android:layout_below="@+id/detail_cast"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    tools:text="Dwa oskary pięć złotych globów i trzy fryderyki"
+                    android:id="@+id/detail_awards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:layout_toRightOf="@id/nagrody"
+                    android:layout_below="@+id/detail_cast"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="150dp"/>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/detail_plot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
+                android:textSize="15dp"
+                android:layout_below="@+id/details"
+
+                tools:text="sdsdsds sdsd sd sdsdsdsddsd sdsds sdsdsdsdsdsds sdsdsdsds sdsdsd sdsd sddsdsdsdsd sdsdsdsdsdsd sdsds dsdsds sdsdsdsds sdsdsdsd dsds sd ds ds ds dsdsdsddsdsds dsdsd sdsd sddsdsdsds sdd sdsds sdsd ds dsdsdsddsfffffffffffffffffffffffff fffffff f f f ffffffffffffffffffffffffffffff f f f f ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff f f f fffffffffffffffffffffffffffffffffffffffffffffff f f f f f fffffffffffffffffffffffffffffffffffffffffffffffffffffffff f f ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff f f f ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff f f fffffffffffffffffffffffffffffffffffffffff f f fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff f f ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff f f f f f f f fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff f f f f f fffffffffffffffffffffffffffffwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww  w w w w w w wwwwwwwwwwwwwwwwwwwwwwwwwww w w w w w wwwwwwwwwwwwwwwwwwwwwww" />
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
 </LinearLayout>
 
 
-    <!--@SerializedName("Rated")  )  @SerializedName("Runtime")-->
-                    <!--@SerializedName("Awards"-->
-    <!--@SerializedName("Plot")-->
-    <!--@SerializedName("Director")-->
-    <!--@SerializedName("Actors")-->
-
-
-
-    <!--private String imdbRating;-->
 
 
