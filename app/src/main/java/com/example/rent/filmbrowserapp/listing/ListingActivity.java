@@ -54,9 +54,6 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
 
     private EndlessScrollListener endlessScrollListener;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,19 +85,11 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
                 startLoading(title, year, type);
             }
         });
-
-
         startLoading(title, year, type);
-
-
-        //  endlessScrollListener.onScrollStateChanged(recyclerView);
     }
 
     private void startLoading(String title, int year, String type) {
-        getPresenter().getDataAsync(title, year, type)   //getPresenter zwraca prezentaera którego wczesniej definiowalismy
-                .subscribeOn(io())       //to co jest  powyżej jest wykonane w innym wątku
-                .observeOn(mainThread())  //to co bedzie wykonywane w głównym wątku
-                .subscribe(this::success, this::error);
+        getPresenter().startLoadingItems(title, year, type);   //getPresenter zwraca prezentaera którego wczesniej definiowalismy
     }
 
     private void error(Throwable throwable) {
@@ -113,16 +102,14 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
         endlessScrollListener.setTotalItemsNumber(Integer.parseInt(searchResult.getTotalResults()));
     }
 
-
-
-    private void success(SearchResult searchResult) {
+    private void success(ResultAggregator resultAggregator) {
         swipeRefreshLayout.setRefreshing(false);
-        if ("false".equalsIgnoreCase(searchResult.getResponse())) {
+        if ("false".equalsIgnoreCase(resultAggregator.getResponse())) {
             viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(noResults));
         } else {
             viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(swipeRefreshLayout));
-            adapter.setItems(searchResult.getItems());
-            endlessScrollListener.setTotalItemsNumber(Integer.parseInt(searchResult.getTotalResults()));
+            adapter.setItems(resultAggregator.getMovieItems());
+            endlessScrollListener.setTotalItemsNumber(resultAggregator.getTotalItemsResult());
         }
     }
     public static Intent createIntent(Context context, String title, int year, String type) {
@@ -152,5 +139,9 @@ public class ListingActivity extends NucleusAppCompatActivity<ListingPresenter> 
     @Override
     public void onMovieItemClick(String imdbID) {
         startActivity(DetailActivity.createIntent(this, imdbID));
+    }
+
+    public void setNewAggregatorResult(ResultAggregator newAggregatorResult) {
+        success(newAggregatorResult);
     }
 }
